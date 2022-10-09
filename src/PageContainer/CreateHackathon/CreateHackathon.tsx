@@ -4,6 +4,7 @@ import './CreateHackathon.scss'
 const CreateHackathon = () => {
     const handleSubmit = (e): void => {
         e.preventDefault();
+        console.log(e);
         const hackathonInfo = { "Name": `${e?.target?.[1]?.value}`, "description": `${e?.target?.[7]?.value}`, "startDate": e?.target?.[3]?.value, "endDate": e?.target?.[5]?.value, "image": `${e?.target?.[9]?.value}` }
         console.log(e?.target?.[5]?.value < e?.target?.[3]?.value);
 
@@ -18,12 +19,13 @@ const CreateHackathon = () => {
             .then(res => res.json())
             .then(result => console.log(result))
         console.log(hackathonInfo.startDate === hackathonInfo.endDate);
+
     }
     return (
         <div className='app__hacktathon-create'>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Create Hackathon</title>
+                <title>DPhi |Create Hackathon</title>
             </Helmet>
             <form onSubmit={handleSubmit}>
                 <fieldset className='text-left'>Challange Name</fieldset>
@@ -41,7 +43,7 @@ const CreateHackathon = () => {
                     <label >
                         <input type="radio" id="Easy" name="Level" value="Easy" required />
                         <span>Easy</span>
-                    </label>*
+                    </label>
                     <br />
                     <label >
                         <input type="radio" id="Medium" name="Level" value="Medium" required />
