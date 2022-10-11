@@ -27,7 +27,7 @@ const HomeStat = () => {
     return (
         <div className='app__home-stat'>
             {
-                stat.map(elem => <div className='d-flex'>
+                stat.map(elem => <div className='d-flex align-item-start justify-content-center'>
                     <img src={elem?.image} alt="" className='text-white' />
                     <div className='d-flex flex-column align-item-center justify-content-center pl-0'>
                         <small className='text-white'>{elem?.num}</small>

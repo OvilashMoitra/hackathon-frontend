@@ -31,7 +31,7 @@ const Home = () => {
                 }
                 setHackathons(data);
             })
-    }, [today])
+    }, [])
 
     const handleStatusCheck = (filtervalue) => {
         console.log(matchSorter(hackathons, filtervalue, { keys: ['status'] }));
@@ -185,7 +185,6 @@ const Home = () => {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <p>{filteredArray.length}</p>
             <section className='app__hackathon-card-container'>
                 {
                     filteredArray.length === 0 ? searchText === "" ? hackathons.map(elem => <HackathonCard key={elem?._id} elem={elem} />) : hackathons.filter(elem => elem?.Name.toLowerCase().includes(searchText.toLowerCase())).map(elem => <HackathonCard key={elem?._id} elem={elem} />) : filteredArray.map(elem => <HackathonCard key={elem?._id} elem={elem} />)
