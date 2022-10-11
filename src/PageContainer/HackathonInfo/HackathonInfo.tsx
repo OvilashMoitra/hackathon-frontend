@@ -11,12 +11,12 @@ const HackathonInfo = () => {
     const today = new Date();
     const navigate = useNavigate();
     useEffect(() => {
-        fetch(`http://localhost:5000/getHackathonData/${id}`)
+        fetch(`https://rocky-bastion-12910.herokuapp.com/getHackathonData/${id}`)
             .then(res => res.json())
             .then(data => setHackathon(data));
     }, [id]);
     const handleDelete = (id: number): void => {
-        const url = `http://localhost:5000/deleteHackathon/${id}`
+        const url = `https://rocky-bastion-12910.herokuapp.com/deleteHackathon/${id}`
         fetch(url, {
             method: 'DELETE',
 

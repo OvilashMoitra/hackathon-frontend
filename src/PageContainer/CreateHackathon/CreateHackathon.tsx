@@ -28,7 +28,7 @@ const CreateHackathon = () => {
 
         // POST the hackathon in Database
 
-        const url = `http://localhost:5000/hackathon`;
+        const url = `https://rocky-bastion-12910.herokuapp.com/hackathon`;
         fetch(url, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },

@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { HelmetProvider } from 'react-helmet-async';
 import HackathonInfo from './PageContainer/HackathonInfo/HackathonInfo.tsx';
 import EditHackathon from './PageContainer/EditHackathon/EditHackathon.tsx';
+import { Link } from 'react-router-dom';
 function App() {
   const helmetContext = {};
   return (
@@ -17,6 +18,8 @@ function App() {
           <Route path="/createHackathon" element={<CreateHackathon />} />
           <Route path="/HackathonInfo/:id" element={<HackathonInfo />} />
           <Route path="/EditHackathon/:id" element={<EditHackathon />} />
+          <Route path="*" element={<Link to={'/'}>Home</Link>} />
+
         </Routes>
       </HelmetProvider>
     </div>

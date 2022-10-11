@@ -7,7 +7,7 @@ const EditHackathon = () => {
     const { id } = useParams();
     const [hackathon, setHackathon] = React.useState({});
     useEffect(() => {
-        fetch(`http://localhost:5000/getHackathonData/${id}`)
+        fetch(`https://rocky-bastion-12910.herokuapp.com/getHackathonData/${id}`)
             .then(res => res.json())
             .then(data => setHackathon(data));
     }, [id])
@@ -23,7 +23,7 @@ const EditHackathon = () => {
             hackathonInfo = { ...hackathonInfo, "level": "Hard" }
         }
         // Update a Hackathon Info to DB
-        fetch(`http://localhost:5000/editHackathon/${id}`, {
+        fetch(`https://rocky-bastion-12910.herokuapp.com/editHackathon/${id}`, {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(hackathonInfo)
@@ -32,8 +32,6 @@ const EditHackathon = () => {
     }
     return (
         <div className='app__hacktathon-create'>
-            <p>{id}</p>
-            <p>here I use to edit the hackathon</p>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>DPhi| Edit Hackathon</title>

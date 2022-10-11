@@ -15,7 +15,7 @@ const Home = () => {
     const [checkedArray, setCheckedArray] = useState([]);
     const [filteredArray, setFilteredArray] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:5000/getHackathonData`)
+        fetch(`https://rocky-bastion-12910.herokuapp.com/getHackathonData`)
             .then(res => res.json())
             .then(data => setHackathons(data))
     }, [])
