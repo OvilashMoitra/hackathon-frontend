@@ -10,16 +10,17 @@ const HackathonCard = ({ elem }) => {
     const today = new Date();
     // countdown process
     // Random component
-    const Completionist = () => <span>You are good to go!</span>;
+    console.log("props elem", elem);
 
     // Renderer callback with condition
-    const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    const renderer = ({ days, hours, minutes, completed }) => {
         // if (completed) {
         //     // Render a complete state
         //     // return <Completionist />;
-        //     render()
+        //     return (setRender((prev) => !prev))
+
         // } else {
-        // Render a countdown
+        //     // Render a countdown
         return (
             <span>
                 <strong className='app__hackathon-timer'>
@@ -40,19 +41,19 @@ const HackathonCard = ({ elem }) => {
                 <img src={elem?.image} alt="" />
                 <section>
                     {
-                        elem?.status === "Past" ? <p className='app__hackathon-status-past'>{elem?.status}</p> : null
+                        Moment(elem?.endDate).unix() < Moment(today).unix() ? <p className='app__hackathon-status-past'>{elem?.status}</p> : null
                     }
                     {
-                        elem?.status === "Upcoming" ? <p className='app__hackathon-status-upcoming'>{elem?.status}</p> : null
+                        Moment(today).unix() < Moment(elem.startDate).unix() ? <p className='app__hackathon-status-upcoming'>{elem?.status}</p> : null
                     }
                     {
-                        elem?.status === "Active" ? <p className='app__hackathon-status-active'>{elem?.status}</p> : null
+                        Moment(today).unix() >= Moment(elem?.startDate).unix() && Moment(today).unix() <= Moment(elem?.endDate).unix() ? <p className='app__hackathon-status-active'>Active</p> : null
                     }
                 </section>
                 <p>{elem?.Name}</p>
                 <section>
                     {
-                        elem?.status === "Past" ? <>
+                        Moment(elem?.endDate).unix() < Moment(today).unix() ? <>
                             <p>Ended On</p>
                             <p>
                                 <strong>{Moment(elem?.endDate).format("LLL")}</strong>
@@ -61,7 +62,7 @@ const HackathonCard = ({ elem }) => {
                     }
                     {
 
-                        elem?.status === "Upcoming" ? <>
+                        Moment(today).unix() < Moment(elem.startDate).unix() ? <>
                             <p>Starts in</p>
                             <Countdown date={Date.now() + ((Moment(elem?.startDate).unix() - Moment(today).unix()) * 1000)} renderer={renderer} />
                             <br />
@@ -69,7 +70,7 @@ const HackathonCard = ({ elem }) => {
                         </> : null
                     }
                     {
-                        elem?.status === "Active" ? <>
+                        Moment(today).unix() >= Moment(elem?.startDate).unix() && Moment(today).unix() <= Moment(elem?.endDate).unix() ? <>
                             <p>Ends in</p>
                             <Countdown date={Date.now() + ((Moment(elem?.endDate).unix() - Moment(today).unix()) * 1000)} renderer={renderer} />
                             <br />

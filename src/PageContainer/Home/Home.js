@@ -5,20 +5,33 @@ import HomeBanner from '../../Components/HomeBanner/HomeBanner.tsx';
 import HomeStat from '../../Components/HomeStat/HomeStat.tsx';
 import Navigationbar from '../../Components/Navigationbar/Navigationbar.tsx';
 import { BiSearchAlt } from "react-icons/bi";
+import Moment from 'moment';
 import './Home.scss'
 import { matchSorter } from 'match-sorter'
-import Moment from 'moment';
 import { Accordion } from 'react-bootstrap';
 const Home = () => {
     const [hackathons, setHackathons] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [checkedArray, setCheckedArray] = useState([]);
     const [filteredArray, setFilteredArray] = useState([]);
+    const today = new Date();
     useEffect(() => {
         fetch(`https://rocky-bastion-12910.herokuapp.com/getHackathonData`)
             .then(res => res.json())
-            .then(data => setHackathons(data))
-    }, [])
+            .then(data => {
+
+                for (let i = 0; i < data?.length; i++) {
+                    if (Moment(data[i]?.endDate).unix() < Moment(today).unix()) {
+                        data[i] = { ...data[i], "status": "Past" };
+                    } else if (Moment(today).unix() < Moment(data[i].startDate).unix()) {
+                        data[i] = { ...data[i], "status": "Upcoming" };
+                    } else if (Moment(today).unix() >= Moment(data[i]?.startDate).unix() && Moment(today).unix() <= Moment(data[i]?.endDate).unix()) {
+                        data[i] = { ...data[i], "status": "Active" };
+                    }
+                }
+                setHackathons(data);
+            })
+    }, [today])
 
     const handleStatusCheck = (filtervalue) => {
         console.log(matchSorter(hackathons, filtervalue, { keys: ['status'] }));

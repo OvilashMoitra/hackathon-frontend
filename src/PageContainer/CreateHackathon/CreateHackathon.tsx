@@ -1,9 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Navigationbar from '../../Components/Navigationbar/Navigationbar.tsx';
 import HackathonInfo from '../HackathonInfo/HackathonInfo.tsx';
 import './CreateHackathon.scss'
 const CreateHackathon = () => {
-
+    const navigate = useNavigate();
     const handleSubmit = (e): void => {
         e.preventDefault();
         console.log(e?.target?.[10]?.checked);
@@ -37,46 +39,50 @@ const CreateHackathon = () => {
             .then(res => res.json())
             .then(result => console.log(result))
         console.log(hackathonInfo.startDate === hackathonInfo.endDate);
-
+        navigate('/')
     }
     return (
-        <div className='app__hacktathon-create'>
-            <Helmet>
-                <meta charSet="utf-8" />
-                <title>DPhi |Create Hackathon</title>
-            </Helmet>
-            <form onSubmit={handleSubmit}>
-                <fieldset className='text-left'>Challange Name</fieldset>
-                <input type="text" name="name" id="name" className='app__hackathon-create-input' required /><br />
-                <fieldset>Start Date</fieldset>
-                <input type="datetime-local" name="startingDate" id="startingDate" className='app__hackathon-create-input' required />
-                <fieldset>End Date</fieldset>
-                <input type="datetime-local" name="endingDate" id="endingDate" className='app__hackathon-create-input' required />
-                <fieldset> Description</fieldset>
-                <textarea className='app__hackathon-create-input' name="description" id="description" cols={30} rows={10} required /><br />
-                <fieldset>Image</fieldset>
-                <input type="url" name="image" id="image" className='app__hackathon-create-input' required /><br />
-                <div className='app__hackathon-create-input-radio' >
-                    <span>Choose the Challange Level</span>
-                    <label >
-                        <input type="radio" id="Easy" name="Level" value="Easy" required />
-                        <span>Easy</span>
-                    </label>
-                    <br />
-                    <label >
-                        <input type="radio" id="Medium" name="Level" value="Medium" required />
-                        <span>Medium</span>
-                    </label>
-                    <br />
-                    <label >
-                        <input type="radio" id="Hard" name="Level" value="Hard" required />
-                        <span>Hard</span>
-                    </label>
-                    <br />
-                </div>
-                <input type="submit" value="Submit" className='app__sign-up-input' />
-            </form>
-        </div>
+        <>
+            <Navigationbar />
+            <div className='app__hacktathon-create'>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>DPhi |Create Hackathon</title>
+                </Helmet>
+
+                <form onSubmit={handleSubmit}>
+                    <fieldset className='text-left'>Challange Name</fieldset>
+                    <input type="text" name="name" id="name" className='app__hackathon-create-input' required /><br />
+                    <fieldset>Start Date</fieldset>
+                    <input type="datetime-local" name="startingDate" id="startingDate" className='app__hackathon-create-input' required />
+                    <fieldset>End Date</fieldset>
+                    <input type="datetime-local" name="endingDate" id="endingDate" className='app__hackathon-create-input' required />
+                    <fieldset> Description</fieldset>
+                    <textarea className='app__hackathon-create-input' name="description" id="description" cols={30} rows={10} required /><br />
+                    <fieldset>Image</fieldset>
+                    <input type="url" name="image" id="image" className='app__hackathon-create-input' required /><br />
+                    <div className='app__hackathon-create-input-radio' >
+                        <span>Choose the Challange Level</span>
+                        <label >
+                            <input type="radio" id="Easy" name="Level" value="Easy" required />
+                            <span>Easy</span>
+                        </label>
+                        <br />
+                        <label >
+                            <input type="radio" id="Medium" name="Level" value="Medium" required />
+                            <span>Medium</span>
+                        </label>
+                        <br />
+                        <label >
+                            <input type="radio" id="Hard" name="Level" value="Hard" required />
+                            <span>Hard</span>
+                        </label>
+                        <br />
+                    </div>
+                    <input type="submit" value="Submit" className='app__sign-up-input' />
+                </form>
+            </div>
+        </>
     );
 };
 
