@@ -1,13 +1,18 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import HackathonInfo from '../HackathonInfo/HackathonInfo.tsx';
-import Moment from 'moment';
-import './CreateHackathon.scss'
-const CreateHackathon = () => {
-    const today = new Date();
-    const handleSubmit = (e): void => {
+import '../CreateHackathon/CreateHackathon.scss';
+import { useEffect } from 'react';
+const EditHackathon = () => {
+    const { id } = useParams();
+    const [hackathon, setHackathon] = React.useState({});
+    useEffect(() => {
+        fetch(`http://localhost:5000/getHackathonData/${id}`)
+            .then(res => res.json())
+            .then(data => setHackathon(data));
+    }, [id])
+    const handleEditSubmit = (e) => {
         e.preventDefault();
-        console.log(e?.target?.[10]?.checked);
         let hackathonInfo: any = { "Name": `${e?.target?.[1]?.value}`, "description": `${e?.target?.[7]?.value}`, "startDate": e?.target?.[3]?.value, "endDate": e?.target?.[5]?.value, "image": `${e?.target?.[9]?.value}` }
         // Level checking
         if (e?.target?.[10]?.checked === true) {
@@ -17,46 +22,33 @@ const CreateHackathon = () => {
         } else if (e?.target?.[12]?.checked === true) {
             hackathonInfo = { ...hackathonInfo, "level": "Hard" }
         }
-        // Active or Past or Upcoming
-        if (Moment(e?.target?.[5]?.value).unix() < Moment(today).unix()) {
-            hackathonInfo = { ...hackathonInfo, "status": "Past" }
-        } else if (Moment(today).unix() < Moment(e?.target?.[3]?.value).unix()) {
-            hackathonInfo = { ...hackathonInfo, "status": "Upcoming" }
-        } else if (Moment(today).unix() >= Moment(e?.target?.[3]?.value).unix() && Moment(today).unix() <= Moment(e?.target?.[5]?.value).unix()) {
-            hackathonInfo = { ...hackathonInfo, "status": "Active" }
-        }
-        console.log(e?.target?.[5]?.value < e?.target?.[3]?.value);
-
-        // POST the hackathon in Database
-
-        const url = `http://localhost:5000/hackathon`;
-        fetch(url, {
-            method: 'POST',
+        // Update a Hackathon Info to DB
+        fetch(`http://localhost:5000/editHackathon/${id}`, {
+            method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(hackathonInfo)
-        })
-            .then(res => res.json())
+        }).then(res => res.json())
             .then(result => console.log(result))
-        console.log(hackathonInfo.startDate === hackathonInfo.endDate);
-
     }
     return (
         <div className='app__hacktathon-create'>
+            <p>{id}</p>
+            <p>here I use to edit the hackathon</p>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>DPhi |Create Hackathon</title>
+                <title>DPhi| Edit Hackathon</title>
             </Helmet>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleEditSubmit}>
                 <fieldset className='text-left'>Challange Name</fieldset>
-                <input type="text" name="name" id="name" className='app__hackathon-create-input' required /><br />
+                <input type="text" name="name" id="name" className='app__hackathon-create-input' required defaultValue={hackathon?.Name} /><br />
                 <fieldset>Start Date</fieldset>
-                <input type="datetime-local" name="startingDate" id="startingDate" className='app__hackathon-create-input' required />
+                <input type="datetime-local" name="startingDate" id="startingDate" className='app__hackathon-create-input' required defaultValue={hackathon?.startDate} />
                 <fieldset>End Date</fieldset>
-                <input type="datetime-local" name="endingDate" id="endingDate" className='app__hackathon-create-input' required />
+                <input type="datetime-local" name="endingDate" id="endingDate" className='app__hackathon-create-input' required defaultValue={hackathon?.endDate} />
                 <fieldset> Description</fieldset>
-                <textarea className='app__hackathon-create-input' name="description" id="description" cols={30} rows={10} required /><br />
+                <textarea className='app__hackathon-create-input' name="description" id="description" cols={30} rows={10} required defaultValue={hackathon?.description} /><br />
                 <fieldset>Image</fieldset>
-                <input type="url" name="image" id="image" className='app__hackathon-create-input' required /><br />
+                <input type="url" name="image" id="image" className='app__hackathon-create-input' required defaultValue={hackathon?.image} /><br />
                 <div className='app__hackathon-create-input-radio' >
                     <span>Choose the Challange Level</span>
                     <label >
@@ -81,4 +73,4 @@ const CreateHackathon = () => {
     );
 };
 
-export default CreateHackathon;
+export default EditHackathon;

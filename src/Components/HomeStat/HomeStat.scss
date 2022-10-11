@@ -1,0 +1,13 @@
+.app__home-stat {
+    width: 100vw;
+    height: 200px;
+    background: #002A3B;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    img {
+        width: 50px;
+        height: 50px;
+
+    }
+}

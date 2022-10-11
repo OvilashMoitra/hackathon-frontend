@@ -1,0 +1,46 @@
+.app__home-banner {
+    width: 100vw;
+    height: 60vh;
+    background: #003145;
+    display: flex;
+    justify-content: space-between;
+
+    .app__home-banner-test {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        text-align: left;
+        padding-left: 100px;
+        padding-top: 20px;
+    }
+
+    h3 {
+
+        width: 643px;
+        height: 112px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 48px;
+        line-height: 56px;
+        color: #FFFFFF;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 14px;
+        color: #ECECEC;
+    }
+
+    .app__homeBanner-link {
+        color: #003145;
+        width: 198px;
+        height: 47px;
+        font-size: 18px;
+        background: #FFFFFF;
+        border-radius: 10px;
+        text-decoration: none;
+        display: inline-block;
+        line-height: 2.5;
+    }
+}

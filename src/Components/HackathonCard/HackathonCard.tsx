@@ -1,19 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './HackathonCard.scss'
 import Moment from 'moment';
 import Countdown from "react-countdown";
 import { TiInputChecked } from "react-icons/ti";
+import { Link } from 'react-router-dom';
 const HackathonCard = ({ elem }) => {
+    const [id, setId] = useState();
     const today = new Date();
-    console.log(Moment(today).unix() < Moment(elem?.startDate).unix());
-    // console.log(today.toISOString());
-    // console.log(parseInt(today.toISOString) - elem?.startDate);
-    // console.log('timing', Moment(today).unix());
-    // console.log(Moment().subtract(Moment(elem?.startDate).format('LL'), 'd').format());
-    // console.log('minus value', (Moment(today).unix() - Moment(elem?.startDate).unix()));
-    // console.log(parseInt(Moment(elem?.startDate).format('LL')) - parseInt(Moment(today).format('LL')));
-
-
     // countdown process
     // Random component
     const Completionist = () => <span>You are good to go!</span>;
@@ -38,50 +31,53 @@ const HackathonCard = ({ elem }) => {
             );
         }
     };
+    console.log("id of the clicked the card", id);
     return (
-        <div className='app__hackathon-card'>
-            <img src={elem?.image} alt="" />
-            <section>
-                {
-                    Moment(elem?.endDate).unix() < Moment(today).unix() ? <p className='app__hackathon-status-past'>Past</p> : null
-                }
-                {
-                    Moment(today).unix() < Moment(elem?.startDate).unix() ? <p className='app__hackathon-status-upcoming'>Upcomming</p> : null
-                }
-                {
-                    Moment(today).unix() >= Moment(elem?.startDate).unix() && Moment(today).unix() <= Moment(elem?.endDate).unix() ? <p className='app__hackathon-status-active'>Live</p> : null
-                }
-            </section>
-            <p>{elem?.Name}</p>
-            <section>
-                {
-                    Moment(elem?.endDate).unix() < Moment(today).unix() ? <>
-                        <p>Ended On</p>
-                        <p>
-                            <strong>{Moment(elem?.endDate).format("LLL")}</strong>
-                        </p>
-                    </> : null
-                }
-                {
-                    //    const leftTime = (Moment(elem?.startDate).unix() - Moment(today).unix());
-                    Moment(today).unix() < Moment(elem?.startDate).unix() ? <>
-                        <p>Starts in</p>
-                        <Countdown date={Date.now() + ((Moment(elem?.startDate).unix() - Moment(today).unix()) * 1000)} renderer={renderer} />
-                        <br />
-                        <button className='app__hackathon-participate-button'><TiInputChecked />Participate Now</button>
-                    </> : null
-                }
-                {
-                    Moment(today).unix() >= Moment(elem?.startDate).unix() && Moment(today).unix() <= Moment(elem?.endDate).unix() ? <>
-                        <p>Ends in</p>
-                        <Countdown date={Date.now() + ((Moment(elem?.endDate).unix() - Moment(today).unix()) * 1000)} renderer={renderer} />
-                        <br />
-                        <button className='app__hackathon-participate-button'><TiInputChecked />Participate Now</button>
+        <Link to={`HackathonInfo/${elem?._id}`} className="text-decoration-none">
+            <div className='app__hackathon-card' onClick={() => setId(elem?._id)}>
+                <img src={elem?.image} alt="" />
+                <section>
+                    {
+                        elem?.status === "Past" ? <p className='app__hackathon-status-past'>{elem?.status}</p> : null
+                    }
+                    {
+                        elem?.status === "Upcoming" ? <p className='app__hackathon-status-upcoming'>{elem?.status}</p> : null
+                    }
+                    {
+                        elem?.status === "Active" ? <p className='app__hackathon-status-active'>{elem?.status}</p> : null
+                    }
+                </section>
+                <p>{elem?.Name}</p>
+                <section>
+                    {
+                        elem?.status === "Past" ? <>
+                            <p>Ended On</p>
+                            <p>
+                                <strong>{Moment(elem?.endDate).format("LLL")}</strong>
+                            </p>
+                        </> : null
+                    }
+                    {
 
-                    </> : null
-                }
-            </section>
-        </div>
+                        elem?.status === "Upcoming" ? <>
+                            <p>Starts in</p>
+                            <Countdown date={Date.now() + ((Moment(elem?.startDate).unix() - Moment(today).unix()) * 1000)} renderer={renderer} />
+                            <br />
+                            <button className='app__hackathon-participate-button'><TiInputChecked />Participate Now</button>
+                        </> : null
+                    }
+                    {
+                        elem?.status === "Active" ? <>
+                            <p>Ends in</p>
+                            <Countdown date={Date.now() + ((Moment(elem?.endDate).unix() - Moment(today).unix()) * 1000)} renderer={renderer} />
+                            <br />
+                            <button className='app__hackathon-participate-button'><TiInputChecked />Participate Now</button>
+
+                        </> : null
+                    }
+                </section>
+            </div>
+        </Link>
     );
 };
 

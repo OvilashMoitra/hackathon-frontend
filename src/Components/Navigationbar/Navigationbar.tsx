@@ -16,7 +16,7 @@ const Navigationbar = () => {
               <Link to="/" className='text-decoration-none text-dark'>
                 Home
               </Link>
-              <Link to="createHackathon" className='text-decoration-none ps-5 text-dark'>
+              <Link to="/createHackathon" className='text-decoration-none ps-5 text-dark'>
                 Create Hackathon
               </Link>
             </Nav>

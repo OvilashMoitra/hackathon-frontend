@@ -1,0 +1,113 @@
+.app__hackathonInfo-banner {
+    width: 100vw;
+    height: 399px;
+    background: #003145;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    padding-left: 20px;
+    align-items: flex-start;
+    padding: 20px;
+
+    h3,
+    p {
+        line-height: 2;
+    }
+}
+
+.app__hackathonInfo-upcoming-date {
+    width: 464px;
+    height: 34px;
+    background: #FFCE5C;
+    border-radius: 5px;
+}
+
+.app__hackathonInfo-past-date {
+    width: 464px;
+    height: 34px;
+    color: white;
+    background: red;
+    border-radius: 5px;
+}
+
+.app__hackathon-status-active {
+    width: 105px;
+    height: 33px;
+    background: rgba(68, 146, 76, 0.24);
+    border-radius: 5px;
+    color: #44924C;
+    font-style: bold;
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0 auto;
+    line-height: 2.5;
+    text-align: center;
+}
+
+.app__hackathonInfo-level {
+    width: 102px;
+    height: 34px;
+    background: #F8F9FD;
+    border-radius: 5px;
+    color: #003145;
+}
+
+.app__hackathonInfo-overview {
+    box-sizing: border-box;
+    width: 100vw;
+    position: relative;
+    height: 66px;
+    background: #FFFFFF;
+    border: 0.3px solid #DDE6ED;
+    box-shadow: 0px 6px 12px #DDE6ED;
+
+    p {
+        position: absolute;
+        left: 5%;
+        bottom: -17%;
+        font-weight: bolder;
+    }
+
+    span {
+        position: absolute;
+        width: 125px;
+        height: 4px;
+        left: 4%;
+        bottom: 0%;
+        background: #44924C;
+        border-radius: 20px;
+    }
+
+
+}
+
+.app__hackathonInfo-description {
+    display: flex;
+    align-items: flex-start;
+    justify-self: flex-start;
+    padding: 10px 30px;
+}
+
+.app__hackathon-action-button-container {
+    position: relative;
+    left: 36%;
+    top: 17%;
+}
+
+.app__hackathon-edit-button {
+    width: 91px;
+    height: 37px;
+    background: #44924C;
+    border-radius: 10px;
+    color: white;
+    border: none;
+}
+
+.app__hackathon-delete-button {
+    width: 91px;
+    height: 37px;
+    border: 2px solid #DC1414;
+    color: #DC1414;
+    border-radius: 10px;
+    margin-left: 10px;
+}
