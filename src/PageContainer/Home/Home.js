@@ -42,7 +42,7 @@ const Home = () => {
                 let tempFilter = [];
 
                 for (let index = 0; index < newCheckArray.length; index++) {
-                    if ((newCheckArray[index] !== "Easy") || (newCheckArray[index] !== "Medium") || (newCheckArray[index] !== "Hard")) {
+                    if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
                         tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
                     } else {
                         tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
@@ -54,14 +54,16 @@ const Home = () => {
                 // setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
                 let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
                 let tempFilter = [];
-                setCheckedArray(newCheckArray);
+
                 for (let index = 0; index < newCheckArray.length; index++) {
-                    if ((newCheckArray[index] !== "Easy") || (newCheckArray[index] !== "Medium") || (newCheckArray[index] !== "Hard")) {
+                    if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
                         tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
                     } else {
                         tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
                     }
                 }
+                setCheckedArray(newCheckArray);
+
                 setFilteredArray(tempFilter);
 
             }
@@ -96,14 +98,19 @@ const Home = () => {
         if (checkedArray?.includes(filtervalue) === true) {
             let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
             let tempFilter = [];
-            setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
+            console.log(newCheckArray);
             for (let index = 0; index < newCheckArray.length; index++) {
-                if ((newCheckArray[index] !== "Easy") || (newCheckArray[index] !== "Medium") || (newCheckArray[index] !== "Hard")) {
+                if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
+                    console.log(newCheckArray[index])
                     tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
                 } else {
-                    tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
+                    console.log(newCheckArray[index])
+                    tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])];
+                    console.log("temp filter", tempFilter);
                 }
             }
+            // console.log("temporary filter", tempFilter);
+            setCheckedArray(newCheckArray);
             setFilteredArray(tempFilter);
 
             // setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));

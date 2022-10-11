@@ -10,7 +10,7 @@ const HackathonCard = ({ elem }) => {
     const today = new Date();
     // countdown process
     // Random component
-    console.log("props elem", elem);
+
 
     // Renderer callback with condition
     const renderer = ({ days, hours, minutes, completed }) => {
@@ -34,7 +34,6 @@ const HackathonCard = ({ elem }) => {
         );
         // }
     };
-    console.log("id of the clicked the card", id);
     return (
         <Link to={`HackathonInfo/${elem?._id}`} className="text-decoration-none">
             <div className='app__hackathon-card' onClick={() => setId(elem?._id)}>
