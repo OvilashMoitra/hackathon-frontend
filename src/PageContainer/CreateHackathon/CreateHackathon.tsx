@@ -1,10 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import HackathonInfo from '../HackathonInfo/HackathonInfo.tsx';
-import Moment from 'moment';
 import './CreateHackathon.scss'
 const CreateHackathon = () => {
-    const today = new Date();
+
     const handleSubmit = (e): void => {
         e.preventDefault();
         console.log(e?.target?.[10]?.checked);
@@ -17,14 +16,14 @@ const CreateHackathon = () => {
         } else if (e?.target?.[12]?.checked === true) {
             hackathonInfo = { ...hackathonInfo, "level": "Hard" }
         }
-        // Active or Past or Upcoming
-        if (Moment(e?.target?.[5]?.value).unix() < Moment(today).unix()) {
-            hackathonInfo = { ...hackathonInfo, "status": "Past" }
-        } else if (Moment(today).unix() < Moment(e?.target?.[3]?.value).unix()) {
-            hackathonInfo = { ...hackathonInfo, "status": "Upcoming" }
-        } else if (Moment(today).unix() >= Moment(e?.target?.[3]?.value).unix() && Moment(today).unix() <= Moment(e?.target?.[5]?.value).unix()) {
-            hackathonInfo = { ...hackathonInfo, "status": "Active" }
-        }
+        // // Active or Past or Upcoming
+        // if (Moment(e?.target?.[5]?.value).unix() < Moment(today).unix()) {
+        //     hackathonInfo = { ...hackathonInfo, "status": "Past" }
+        // } else if (Moment(today).unix() < Moment(e?.target?.[3]?.value).unix()) {
+        //     hackathonInfo = { ...hackathonInfo, "status": "Upcoming" }
+        // } else if (Moment(today).unix() >= Moment(e?.target?.[3]?.value).unix() && Moment(today).unix() <= Moment(e?.target?.[5]?.value).unix()) {
+        //     hackathonInfo = { ...hackathonInfo, "status": "Active" }
+        // }
         console.log(e?.target?.[5]?.value < e?.target?.[3]?.value);
 
         // POST the hackathon in Database

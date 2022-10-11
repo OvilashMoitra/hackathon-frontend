@@ -4,6 +4,7 @@ import Moment from 'moment';
 import Countdown from "react-countdown";
 import { TiInputChecked } from "react-icons/ti";
 import { Link } from 'react-router-dom';
+import { render } from '@testing-library/react';
 const HackathonCard = ({ elem }) => {
     const [id, setId] = useState();
     const today = new Date();
@@ -13,23 +14,24 @@ const HackathonCard = ({ elem }) => {
 
     // Renderer callback with condition
     const renderer = ({ days, hours, minutes, seconds, completed }) => {
-        if (completed) {
-            // Render a complete state
-            return <Completionist />;
-        } else {
-            // Render a countdown
-            return (
-                <span>
-                    <strong className='app__hackathon-timer'>
-                        {days}    :    {hours} :    {minutes}
-                    </strong>
-                    <br />
-                    <small className='app__hackathon-timer-text'>
-                        Days  Hours  Mins
-                    </small>
-                </span>
-            );
-        }
+        // if (completed) {
+        //     // Render a complete state
+        //     // return <Completionist />;
+        //     render()
+        // } else {
+        // Render a countdown
+        return (
+            <span>
+                <strong className='app__hackathon-timer'>
+                    {days}    :    {hours} :    {minutes}
+                </strong>
+                <br />
+                <small className='app__hackathon-timer-text'>
+                    Days  Hours  Mins
+                </small>
+            </span>
+        );
+        // }
     };
     console.log("id of the clicked the card", id);
     return (

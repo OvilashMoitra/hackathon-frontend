@@ -7,6 +7,7 @@ import Navigationbar from '../../Components/Navigationbar/Navigationbar.tsx';
 import { BiSearchAlt } from "react-icons/bi";
 import './Home.scss'
 import { matchSorter } from 'match-sorter'
+import Moment from 'moment';
 import { Accordion } from 'react-bootstrap';
 const Home = () => {
     const [hackathons, setHackathons] = useState([]);
@@ -22,16 +23,31 @@ const Home = () => {
     const handleStatusCheck = (filtervalue) => {
         console.log(matchSorter(hackathons, filtervalue, { keys: ['status'] }));
         if (checkedArray?.includes(filtervalue) === true) {
-            setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
+            // setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
             if (filtervalue !== "ALL") {
-                setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
-                setFilteredArray(filteredArray.filter(elem => elem?.status !== filtervalue));
+                let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
+                let tempFilter = [];
+
+                for (let index = 0; index < newCheckArray.length; index++) {
+                    if ((newCheckArray[index] !== "Easy") || (newCheckArray[index] !== "Medium") || (newCheckArray[index] !== "Hard")) {
+                        tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
+                    } else {
+                        tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
+                    }
+                }
+                setCheckedArray(newCheckArray);
+                setFilteredArray(tempFilter);
             } else {
                 // setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
                 let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
                 let tempFilter = [];
+                setCheckedArray(newCheckArray);
                 for (let index = 0; index < newCheckArray.length; index++) {
-                    tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])]
+                    if ((newCheckArray[index] !== "Easy") || (newCheckArray[index] !== "Medium") || (newCheckArray[index] !== "Hard")) {
+                        tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
+                    } else {
+                        tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
+                    }
                 }
                 setFilteredArray(tempFilter);
 
@@ -39,7 +55,21 @@ const Home = () => {
         } else {
             setCheckedArray(prev => [...prev, filtervalue]);
             if (filtervalue !== "ALL") {
-                setFilteredArray(prev => [...prev, ...matchSorter(hackathons, filtervalue, { keys: ['status'] })])
+                let temArr = filteredArray;
+                const uniqueIds = []
+                temArr = [...temArr, ...matchSorter(hackathons, filtervalue, { keys: ['status'] })].filter(element => {
+                    const isDuplicate = uniqueIds.includes(element._id);
+
+                    if (!isDuplicate) {
+                        uniqueIds.push(element._id);
+
+                        return true;
+                    }
+
+                    return false;
+                });;
+                setFilteredArray(temArr);
+                // setFilteredArray(prev => [...prev, ...matchSorter(hackathons, filtervalue, { keys: ['status'] })])
             } else {
                 setFilteredArray(hackathons)
             }
@@ -47,15 +77,42 @@ const Home = () => {
 
     }
     // level checking
+    console.log(hackathons);
     const handleLevelCheck = (filtervalue) => {
         console.log(matchSorter(hackathons, filtervalue, { keys: ['level'] }));
         if (checkedArray?.includes(filtervalue) === true) {
+            let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
+            let tempFilter = [];
             setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
-            setFilteredArray(filteredArray.filter(elem => elem?.level !== filtervalue));
+            for (let index = 0; index < newCheckArray.length; index++) {
+                if ((newCheckArray[index] !== "Easy") || (newCheckArray[index] !== "Medium") || (newCheckArray[index] !== "Hard")) {
+                    tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
+                } else {
+                    tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
+                }
+            }
+            setFilteredArray(tempFilter);
 
+            // setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
+            // setFilteredArray(filteredArray.filter(elem => elem?.level !== filtervalue));
+            // hard and active when removing hard one is getting removed.
         } else {
             setCheckedArray(prev => [...prev, filtervalue]);
-            setFilteredArray(prev => [...prev, ...matchSorter(hackathons, filtervalue, { keys: ['level'] })])
+            let temArr = filteredArray;
+            const uniqueIds = [];
+            temArr = [...temArr, ...matchSorter(hackathons, filtervalue, { keys: ['level'] })].filter(element => {
+                const isDuplicate = uniqueIds.includes(element._id);
+
+                if (!isDuplicate) {
+                    uniqueIds.push(element._id);
+
+                    return true;
+                }
+
+                return false;
+            });;
+            setFilteredArray(temArr);
+            // setFilteredArray(prev => [...prev, ...matchSorter(hackathons, filtervalue, { keys: ['level'] })])
         }
     }
 
