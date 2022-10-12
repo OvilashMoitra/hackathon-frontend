@@ -6,12 +6,23 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
+    @media (max-width: 480px) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
     .app__home-stat-devider {
         width: 1px;
         position: relative;
         height: 38px;
         right: 44%;
         background: #C4C4C4;
+
+        @media (max-width: 480px) {
+            display: none;
+        }
     }
 
     img {
