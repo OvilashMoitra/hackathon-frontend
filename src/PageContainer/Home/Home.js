@@ -9,6 +9,7 @@ import Moment from 'moment';
 import './Home.scss'
 import { matchSorter } from 'match-sorter'
 import { Accordion } from 'react-bootstrap';
+import ChallangeInfo from '../../Components/ChallangeInfo/ChallangeInfo.tsx';
 const Home = () => {
     const [hackathons, setHackathons] = useState([]);
     const [searchText, setSearchText] = useState('');
@@ -160,6 +161,7 @@ const Home = () => {
             <Navigationbar />
             <HomeBanner />
             <HomeStat />
+            <ChallangeInfo />
             <section className='app__searchbox-filter-container'>
                 <p className='text-white fw-bolder' style={{ "fontFamily": "Poppins" }}>Explore Challenges</p>
                 <div className='app__searchbox-filter'>
