@@ -67,25 +67,7 @@ const Home = () => {
                     //     tempFilter = hackathons;
                     // }
                 }
-                // if (newCheckArray.includes("ALL") === true) {
-                //     tempFilter = hackathons;
-                // }
 
-
-                // if (newCheckArray.includes("ALL") === true) {
-                //     tempFilter = hackathons;
-                // } else {
-                //     for (let index = 0; index < newCheckArray.length; index++) {
-                //         if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
-                //             tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
-                //         } else {
-                //             tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
-                //         }
-                //         // if (newCheckArray[index] === "ALL") {
-                //         //     tempFilter = hackathons;
-                //         // }
-                //     }
-                // }
                 setCheckedArray(newCheckArray);
 
                 setFilteredArray(tempFilter);
