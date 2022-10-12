@@ -1,8 +1,8 @@
 import React from 'react';
 import './HomeStat.scss';
-import AiModel from '../../assets/icons/Ai Hosted Challanges.png';
-import DataScientists from '../../assets/icons/Data Scientists.png';
-import AiChallange from "../../assets/icons/Ai Model Mission.png"
+import AiModel from '../../assets/icons/Ai model Final Picture.png';
+import DataScientists from '../../assets/icons/Data Science Final Picture.png';
+import AiChallange from "../../assets/icons/Ai Challange Final Picture.png";
 const HomeStat = () => {
     const stat = [
         {
@@ -29,9 +29,12 @@ const HomeStat = () => {
             {
                 stat.map(elem => <div className='d-flex align-items-center justify-content-center'>
                     <img src={elem?.image} alt="" className='text-white' />
-                    <div className='d-flex flex-column align-items-start pl-5'>
-                        <small className='text-white'>{elem?.num}</small>
-                        <small className='text-white'>{elem?.text}</small>
+                    {elem?.id !== 1 ? <span className='app__home-stat-devider'></span> : null}
+                    <div className='d-flex flex-column align-items-start'>
+                        <div className='d-flex flex-column align-items-start'>
+                            <small className='text-white'>{elem?.num}</small>
+                            <small className='text-white'>{elem?.text}</small>
+                        </div>
                     </div>
                 </div>)
             }

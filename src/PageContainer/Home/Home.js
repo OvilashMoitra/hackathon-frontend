@@ -161,7 +161,7 @@ const Home = () => {
             <HomeBanner />
             <HomeStat />
             <section className='app__searchbox-filter-container'>
-                <p className='text-white fw-bolder'>Explore Challenges</p>
+                <p className='text-white fw-bolder' style={{ "fontFamily": "Poppins" }}>Explore Challenges</p>
                 <div className='app__searchbox-filter'>
                     <BiSearchAlt className='app__hackathon-searchIcon' />
                     <input onChange={(e) => setSearchText(e?.target?.value)} type="search" name="search" id="search" placeholder='Search Here...' className='app__hackathon-searchBar' />

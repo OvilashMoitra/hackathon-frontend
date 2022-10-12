@@ -1,9 +1,12 @@
+// @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 .app__home-banner {
     width: 100vw;
     height: 60vh;
     background: #003145;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .app__home-banner-test {
         display: flex;
@@ -15,18 +18,32 @@
         padding-top: 20px;
     }
 
-    h3 {
+    .app__home-banner-heading {
+        display: flex;
 
-        width: 643px;
-        height: 112px;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 48px;
-        line-height: 56px;
-        color: #FFFFFF;
+        span {
+            width: 6.71px;
+            height: 115.91px;
+            position: relative;
+            left: -4%;
+            background: #FFCE5C;
+        }
+
+        div {
+            h3 {
+                font-style: normal;
+                font-family: 'Poppins';
+                font-weight: 600;
+                font-size: 48px;
+                line-height: 56px;
+                color: #FFFFFF;
+            }
+        }
+
     }
 
     p {
+        font-family: 'Poppins';
         font-size: 18px;
         line-height: 14px;
         color: #ECECEC;
@@ -36,6 +53,8 @@
         color: #003145;
         width: 198px;
         height: 47px;
+        font-family: 'Poppins';
+        font-weight: 600;
         font-size: 18px;
         background: #FFFFFF;
         border-radius: 10px;
