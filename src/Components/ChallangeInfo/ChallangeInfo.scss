@@ -37,13 +37,17 @@
                 margin: 0 auto;
 
             }
+
+            @media (max-width: 820px) {
+                width: 90%;
+                margin: 0 auto;
+
+            }
         }
 
         @media (max-width: 480px) {
             display: grid;
             grid-template-columns: 1fr;
-
-
         }
     }
 }
