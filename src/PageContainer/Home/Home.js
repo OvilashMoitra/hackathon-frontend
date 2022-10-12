@@ -108,6 +108,9 @@ const Home = () => {
                     tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])];
                     console.log("temp filter", tempFilter);
                 }
+                if (newCheckArray[index] === "ALL") {
+                    setFilteredArray(hackathons);
+                }
             }
             // console.log("temporary filter", tempFilter);
             setCheckedArray(newCheckArray);
