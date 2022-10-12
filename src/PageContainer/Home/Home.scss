@@ -3,40 +3,61 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
     justify-items: center;
+    background: #003145;
+    padding: 120px 0;
 }
 
-.app__hackathon-searchBar {
-    width: 829px;
-    height: 50px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 50px rgba(111, 111, 111, 0.1);
-    border-radius: 12px;
-    padding-left: 35px;
-}
+.app__searchbox-filter-container {
+    width: 100vw;
+    height: 324px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #002A3B;
+    flex-direction: column;
 
-.app__hackathon-searchIcon {
-    position: relative;
-    top: 0%;
-    left: 2%;
-}
+    .app__searchbox-filter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-.app__filter-container {
-    position: absolute;
-    width: 290px;
-    // height: 394px;
-    top: 100%;
-    left: 79%;
-    background: #FFFFFF;
-    box-shadow: 0px 6px 12px rgba(221, 230, 237, 0.3);
-    border-radius: 10px;
-}
+        .app__hackathon-searchBar {
+            width: 829px;
+            height: 50px;
+            background: #FFFFFF;
+            box-shadow: 0px 4px 50px rgba(111, 111, 111, 0.1);
+            border-radius: 12px;
+            padding-left: 35px;
 
-.app__filter-divider {
-    position: absolute;
-    width: 265.01px;
-    height: 0px;
-    left: 13px;
-    top: 260px;
-    border: 1px solid #ECECEC;
-    transform: matrix(1, 0, 0, 1, 0, 0);
+        }
+
+        .app__hackathon-searchIcon {
+            position: relative;
+            top: 0%;
+            left: 2%;
+        }
+
+        .app__filter-container {
+            position: relative;
+            width: 160px;
+            top: 0%;
+            left: 0%;
+            background: #FFFFFF;
+            box-shadow: 0px 6px 12px rgba(221, 230, 237, 0.3);
+            border-radius: 10px;
+            margin-left: 10px;
+            height: 50px;
+
+            .app__filter-divider {
+                position: absolute;
+                width: 120px;
+                height: 0px;
+                left: 13px;
+                top: 260px;
+                border: 1px solid #ECECEC;
+                transform: matrix(1, 0, 0, 1, 0, 0);
+            }
+        }
+
+    }
 }

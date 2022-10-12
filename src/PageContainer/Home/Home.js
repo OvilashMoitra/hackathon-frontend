@@ -40,13 +40,16 @@ const Home = () => {
             if (filtervalue !== "ALL") {
                 let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
                 let tempFilter = [];
-
-                for (let index = 0; index < newCheckArray.length; index++) {
-                    if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
-                        tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
-                    } else {
-                        tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
+                if (newCheckArray?.includes('ALL') !== true) {
+                    for (let index = 0; index < newCheckArray.length; index++) {
+                        if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
+                            tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
+                        } else {
+                            tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
+                        }
                     }
+                } else {
+                    tempFilter = hackathons;
                 }
                 setCheckedArray(newCheckArray);
                 setFilteredArray(tempFilter);
@@ -54,14 +57,35 @@ const Home = () => {
                 // setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
                 let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
                 let tempFilter = [];
-
                 for (let index = 0; index < newCheckArray.length; index++) {
                     if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
                         tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
                     } else {
                         tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
                     }
+                    // if (newCheckArray[index] === "ALL") {
+                    //     tempFilter = hackathons;
+                    // }
                 }
+                // if (newCheckArray.includes("ALL") === true) {
+                //     tempFilter = hackathons;
+                // }
+
+
+                // if (newCheckArray.includes("ALL") === true) {
+                //     tempFilter = hackathons;
+                // } else {
+                //     for (let index = 0; index < newCheckArray.length; index++) {
+                //         if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
+                //             tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
+                //         } else {
+                //             tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])]
+                //         }
+                //         // if (newCheckArray[index] === "ALL") {
+                //         //     tempFilter = hackathons;
+                //         // }
+                //     }
+                // }
                 setCheckedArray(newCheckArray);
 
                 setFilteredArray(tempFilter);
@@ -99,17 +123,22 @@ const Home = () => {
             let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
             let tempFilter = [];
             console.log(newCheckArray);
-            for (let index = 0; index < newCheckArray.length; index++) {
-                if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
-                    console.log(newCheckArray[index])
-                    tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
-                } else {
-                    console.log(newCheckArray[index])
-                    tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])];
-                    console.log("temp filter", tempFilter);
-                }
-                if (newCheckArray[index] === "ALL") {
-                    setFilteredArray(hackathons);
+            if (newCheckArray.includes("ALL") === true) {
+                tempFilter = hackathons;
+            }
+
+            else {
+                for (let index = 0; index < newCheckArray.length; index++) {
+                    if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
+                        console.log(newCheckArray[index])
+                        tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
+                    } else {
+                        console.log(newCheckArray[index])
+                        tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.level === newCheckArray[index])];
+                        console.log("temp filter", tempFilter);
+                    }
+                    // if (newCheckArray[index] === "ALL") {
+                    //     tempFilter = hackathons;
                 }
             }
             // console.log("temporary filter", tempFilter);
@@ -149,52 +178,57 @@ const Home = () => {
             <Navigationbar />
             <HomeBanner />
             <HomeStat />
-            <BiSearchAlt className='app__hackathon-searchIcon' />
-            <input onChange={(e) => setSearchText(e?.target?.value)} type="search" name="search" id="search" placeholder='Search Here...' className='app__hackathon-searchBar' />
-            <Accordion defaultActiveKey="0" className='app__filter-container'>
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>Filter</Accordion.Header>
-                    <Accordion.Body>
-                        <p>Status</p>
-                        <div className='d-flex justify-content-start flex-column align-items-start'>
-                            <p>
-                                <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status1" name="status1" value="ALL" />
-                                <label htmlFor='status1'>ALL</label>
-                            </p>
-                            <p>
+            <section className='app__searchbox-filter-container'>
+                <p className='text-white fw-bolder'>Explore Challenges</p>
+                <div className='app__searchbox-filter'>
+                    <BiSearchAlt className='app__hackathon-searchIcon' />
+                    <input onChange={(e) => setSearchText(e?.target?.value)} type="search" name="search" id="search" placeholder='Search Here...' className='app__hackathon-searchBar' />
+                    <Accordion className='app__filter-container'>
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header>Filter</Accordion.Header>
+                            <Accordion.Body>
+                                <p>Status</p>
+                                <div className='d-flex justify-content-start flex-column align-items-start'>
+                                    <p>
+                                        <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status1" name="status1" value="ALL" />
+                                        <label htmlFor='status1'>ALL</label>
+                                    </p>
+                                    <p>
 
-                                <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status2" name="status2" value="Upcoming" />
-                                <label htmlFor='status2'>Upcoming</label>
-                            </p>
-                            <p>
-                                <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status3" name="status3" value="Active" />
-                                <label htmlFor='status3'>Active</label>
-                            </p>
-                            <p>
-                                <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status4" name="status4" value="Past" />
-                                <label htmlFor='status4'>Past</label>
-                            </p>
-                        </div>
-                        <span className='app__filter-divider'></span>
-                        <p>Level</p>
-                        <div className='d-flex justify-content-start flex-column align-items-start'>
-                            <p>
-                                <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level1" name="level1" value="Easy" />
-                                <label htmlFor='level1'>Easy</label>
-                            </p>
-                            <p>
+                                        <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status2" name="status2" value="Upcoming" />
+                                        <label htmlFor='status2'>Upcoming</label>
+                                    </p>
+                                    <p>
+                                        <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status3" name="status3" value="Active" />
+                                        <label htmlFor='status3'>Active</label>
+                                    </p>
+                                    <p>
+                                        <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status4" name="status4" value="Past" />
+                                        <label htmlFor='status4'>Past</label>
+                                    </p>
+                                </div>
+                                <span className='app__filter-divider'></span>
+                                <p>Level</p>
+                                <div className='d-flex justify-content-start flex-column align-items-start'>
+                                    <p>
+                                        <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level1" name="level1" value="Easy" />
+                                        <label htmlFor='level1'>Easy</label>
+                                    </p>
+                                    <p>
 
-                                <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level2" name="level2" value="Medium" />
-                                <label htmlFor='level2'>Medium</label>
-                            </p>
-                            <p>
-                                <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level3" name="level3" value="Hard" />
-                                <label htmlFor='level3'>Hard</label>
-                            </p>
-                        </div>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
+                                        <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level2" name="level2" value="Medium" />
+                                        <label htmlFor='level2'>Medium</label>
+                                    </p>
+                                    <p>
+                                        <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level3" name="level3" value="Hard" />
+                                        <label htmlFor='level3'>Hard</label>
+                                    </p>
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
+                </div>
+            </section>
             <section className='app__hackathon-card-container'>
                 {
                     filteredArray.length === 0 ? searchText === "" ? hackathons.map(elem => <HackathonCard key={elem?._id} elem={elem} />) : hackathons.filter(elem => elem?.Name.toLowerCase().includes(searchText.toLowerCase())).map(elem => <HackathonCard key={elem?._id} elem={elem} />) : filteredArray.map(elem => <HackathonCard key={elem?._id} elem={elem} />)
