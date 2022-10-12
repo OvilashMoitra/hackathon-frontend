@@ -1,17 +1,18 @@
 .app__home-banner {
     width: 100vw;
-    height: 60vh;
     background: #003145;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 70px 0;
 
     @media (max-width: 480px) {
         flex-direction: column;
         height: 100vh;
+        padding: 0;
     }
 
-    @media (max-width: 920px) {
+    @media (min-width: 768px) {
         width: 100vw;
     }
 

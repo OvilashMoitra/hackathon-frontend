@@ -10,7 +10,7 @@
         grid-template-columns: 1fr;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 768px) and (max-width: 1024px) {
         grid-template-columns: repeat(2, 1fr);
         padding: 120px 42px;
         grid-gap: 30px;
