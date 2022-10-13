@@ -18,6 +18,10 @@
             height: 39px;
             border: 1px solid #B7B7B7;
             border-radius: 5px;
+
+            @media (max-width: 480px) {
+                width: 90%;
+            }
         }
 
         .app__hackathon-create-input-radio {
@@ -37,6 +41,10 @@
             margin-bottom: 10px;
             background-color: rgb(11, 177, 11);
             color: white;
+        }
+
+        @media (max-width: 480px) {
+            width: 90vw;
         }
     }
 }

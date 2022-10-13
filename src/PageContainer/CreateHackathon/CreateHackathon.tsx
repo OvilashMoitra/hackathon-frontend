@@ -1,11 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navigationbar from '../../Components/Navigationbar/Navigationbar.tsx';
-import HackathonInfo from '../HackathonInfo/HackathonInfo.tsx';
 import './CreateHackathon.scss'
 const CreateHackathon = () => {
     const navigate = useNavigate();
+    const date = new Date();
     const handleSubmit = (e): void => {
         e.preventDefault();
         console.log(e?.target?.[10]?.checked);
@@ -18,6 +18,7 @@ const CreateHackathon = () => {
         } else if (e?.target?.[12]?.checked === true) {
             hackathonInfo = { ...hackathonInfo, "level": "Hard" }
         }
+        hackathonInfo = { ...hackathonInfo, "creationDate": date }
         // // Active or Past or Upcoming
         // if (Moment(e?.target?.[5]?.value).unix() < Moment(today).unix()) {
         //     hackathonInfo = { ...hackathonInfo, "status": "Past" }
@@ -27,7 +28,6 @@ const CreateHackathon = () => {
         //     hackathonInfo = { ...hackathonInfo, "status": "Active" }
         // }
         console.log(e?.target?.[5]?.value < e?.target?.[3]?.value);
-
         // POST the hackathon in Database
 
         const url = `https://rocky-bastion-12910.herokuapp.com/hackathon`;

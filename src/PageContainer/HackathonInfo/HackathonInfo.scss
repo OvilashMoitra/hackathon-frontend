@@ -12,6 +12,7 @@
     h3,
     p {
         line-height: 2;
+        word-wrap: break-word;
     }
 }
 
@@ -20,6 +21,10 @@
     height: 34px;
     background: #FFCE5C;
     border-radius: 5px;
+
+    @media (max-width: 480px) {
+        width: 70%;
+    }
 }
 
 .app__hackathonInfo-past-date {
@@ -28,6 +33,10 @@
     color: white;
     background: red;
     border-radius: 5px;
+
+    @media (max-width: 480px) {
+        width: 70%;
+    }
 }
 
 .app__hackathon-status-active {
@@ -89,9 +98,17 @@
 }
 
 .app__hackathon-action-button-container {
-    position: relative;
-    left: 36%;
+    position: absolute;
+    left: 84%;
     top: 17%;
+
+    @media (max-width: 480px) {
+        left: 47%;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        left: 73%;
+    }
 }
 
 .app__hackathon-edit-button {
@@ -110,4 +127,11 @@
     color: #DC1414;
     border-radius: 10px;
     margin-left: 10px;
+}
+
+.app__hackathon-info-loader {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-self: center;
 }

@@ -11,11 +11,14 @@ import { matchSorter } from 'match-sorter'
 import { Accordion } from 'react-bootstrap';
 import ChallangeInfo from '../../Components/ChallangeInfo/ChallangeInfo.tsx';
 import { MdCancel } from "react-icons/md";
+import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from "react-icons/bs";
+import Switch from "react-switch";
 const Home = () => {
     const [hackathons, setHackathons] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [checkedArray, setCheckedArray] = useState([]);
     const [filteredArray, setFilteredArray] = useState([]);
+    const [checked, setChecked] = useState(false);
     const manualALLClick = useRef();
     const manualActiveClick = useRef();
     const manualPastClick = useRef();
@@ -229,6 +232,25 @@ const Home = () => {
                 return;
         }
     }
+    const handleToggle = (nextChecked) => {
+        if (nextChecked !== true) {
+            const sortedAsc = hackathons.sort(
+                (objA, objB) => Number(new Date(objA.creationDate)) - Number(new Date(objB.creationDate)),
+            );
+            console.log(sortedAsc);
+            setHackathons(sortedAsc);
+        } else {
+            const sortedAsc = hackathons.sort(
+                (objA, objB) => Number(new Date(objB.creationDate)) - Number(new Date(objA.creationDate)),
+            );
+            console.log(sortedAsc);
+            setHackathons(sortedAsc);
+        }
+
+        console.log(nextChecked);
+        // console.log(sortedAsc);
+        setChecked(nextChecked);
+    }
     return (
         <div>
             <Helmet>
@@ -242,6 +264,13 @@ const Home = () => {
             <ChallangeInfo />
             <section className='app__searchbox-filter-container'>
                 <p className='text-white fw-bolder' style={{ "fontFamily": "Poppins" }}>Explore Challenges</p>
+                <Switch
+                    onChange={handleToggle}
+                    checked={checked}
+                    className="react-switch"
+                    uncheckedIcon={<BsFillArrowUpCircleFill style={{ "marginLeft": "4px" }} className='text-white' title='Oldest First' />}
+                    checkedIcon={<BsFillArrowDownCircleFill className='text-white' title='Newest First' />}
+                />
                 <div className='app__searchbox-filter'>
                     <BiSearchAlt className='app__hackathon-searchIcon' />
                     <input onChange={(e) => setSearchText(e?.target?.value)} type="search" name="search" id="search" placeholder='Search Here...' className='app__hackathon-searchBar' />
