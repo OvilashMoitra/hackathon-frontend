@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import HackathonCard from '../../Components/HackathonCard/HackathonCard.tsx';
 import HomeBanner from '../../Components/HomeBanner/HomeBanner.tsx';
@@ -10,11 +10,19 @@ import './Home.scss'
 import { matchSorter } from 'match-sorter'
 import { Accordion } from 'react-bootstrap';
 import ChallangeInfo from '../../Components/ChallangeInfo/ChallangeInfo.tsx';
+import { MdCancel } from "react-icons/md";
 const Home = () => {
     const [hackathons, setHackathons] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [checkedArray, setCheckedArray] = useState([]);
     const [filteredArray, setFilteredArray] = useState([]);
+    const manualALLClick = useRef();
+    const manualActiveClick = useRef();
+    const manualPastClick = useRef();
+    const manualUpcomingClick = useRef();
+    const manualEasyClick = useRef();
+    const manualMediumClick = useRef();
+    const manualHardClick = useRef();
     const today = new Date();
     useEffect(() => {
         fetch(`https://rocky-bastion-12910.herokuapp.com/getHackathonData`)
@@ -194,7 +202,33 @@ const Home = () => {
             // setFilteredArray(prev => [...prev, ...matchSorter(hackathons, filtervalue, { keys: ['level'] })])
         }
     }
-
+    const makeOtherClick = (e) => {
+        switch (e) {
+            case "ALL":
+                manualALLClick?.current.click();
+                break;
+            case "Active":
+                manualActiveClick?.current.click();
+                break;
+            case "Past":
+                manualPastClick?.current.click();
+                break;
+            case "Upcoming":
+                manualUpcomingClick?.current.click();
+                break;
+            case "Easy":
+                manualEasyClick?.current.click();
+                break;
+            case "Medium":
+                manualMediumClick?.current.click();
+                break;
+            case "Hard":
+                manualHardClick?.current.click();
+                break;
+            default:
+                return;
+        }
+    }
     return (
         <div>
             <Helmet>
@@ -218,38 +252,38 @@ const Home = () => {
                                 <p>Status</p>
                                 <div className='d-flex justify-content-start flex-column align-items-start'>
                                     <p>
-                                        <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status1" name="status1" value="ALL" />
-                                        <label htmlFor='status1'>ALL</label>
+                                        <input ref={manualALLClick} onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="ALL" name="ALL" value="ALL" />
+                                        <label htmlFor='ALL'>ALL</label>
                                     </p>
                                     <p>
 
-                                        <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status2" name="status2" value="Upcoming" />
-                                        <label htmlFor='status2'>Upcoming</label>
+                                        <input ref={manualUpcomingClick} onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="Upcoming" name="Upcoming" value="Upcoming" />
+                                        <label htmlFor='Upcoming'>Upcoming</label>
                                     </p>
                                     <p>
-                                        <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status3" name="status3" value="Active" />
-                                        <label htmlFor='status3'>Active</label>
+                                        <input ref={manualActiveClick} onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="Active" name="Active" value="Active" />
+                                        <label htmlFor='Active'>Active</label>
                                     </p>
                                     <p>
-                                        <input onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="status4" name="status4" value="Past" />
-                                        <label htmlFor='status4'>Past</label>
+                                        <input ref={manualPastClick} onClick={(e) => handleStatusCheck(e?.target?.value)} type="checkbox" id="Past" name="Past" value="Past" />
+                                        <label htmlFor='Past'>Past</label>
                                     </p>
                                 </div>
                                 <span className='app__filter-divider'></span>
                                 <p>Level</p>
                                 <div className='d-flex justify-content-start flex-column align-items-start'>
                                     <p>
-                                        <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level1" name="level1" value="Easy" />
-                                        <label htmlFor='level1'>Easy</label>
+                                        <input ref={manualEasyClick} onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="Easy" name="Easy" value="Easy" />
+                                        <label htmlFor='Easy'>Easy</label>
                                     </p>
                                     <p>
 
-                                        <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level2" name="level2" value="Medium" />
-                                        <label htmlFor='level2'>Medium</label>
+                                        <input ref={manualMediumClick} onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="Medium" name="Medium" value="Medium" />
+                                        <label htmlFor='Medium'>Medium</label>
                                     </p>
                                     <p>
-                                        <input onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="level3" name="level3" value="Hard" />
-                                        <label htmlFor='level3'>Hard</label>
+                                        <input ref={manualHardClick} onClick={(e) => handleLevelCheck(e?.target?.value)} type="checkbox" id="Hard" name="Hard" value="Hard" />
+                                        <label htmlFor='Hard'>Hard</label>
                                     </p>
                                 </div>
                             </Accordion.Body>
@@ -258,7 +292,7 @@ const Home = () => {
                 </div>
                 <div className='app__quik-checked-item-container'>
                     {checkedArray.map(elem =>
-                        <p className='app__quik-checked-item'>{elem}</p>
+                        <p className='app__quik-checked-item'>{elem} <MdCancel onClick={() => makeOtherClick(elem)} /></p>
                     )}
                 </div>
             </section>
