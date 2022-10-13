@@ -47,7 +47,12 @@ const CreateHackathon = () => {
             <div className='app__hacktathon-create'>
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>DPhi |Create Hackathon</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <meta name="description" content="Creating Hackathon" />
+                    <meta name="keywords" content="Hackathon,Challanges" />
+                    <meta name="author" content="Ovilash Moitra" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                    <title>DPhi | Create Hackathon</title>
                 </Helmet>
 
                 <form onSubmit={handleSubmit}>

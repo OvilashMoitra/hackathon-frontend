@@ -13,6 +13,7 @@ import ChallangeInfo from '../../Components/ChallangeInfo/ChallangeInfo.tsx';
 import { MdCancel } from "react-icons/md";
 import { BsFillArrowDownCircleFill, BsFillArrowUpCircleFill } from "react-icons/bs";
 import Switch from "react-switch";
+import PropagateLoader from "react-spinners/PropagateLoader";
 const Home = () => {
     const [hackathons, setHackathons] = useState([]);
     const [searchText, setSearchText] = useState('');
@@ -325,12 +326,14 @@ const Home = () => {
                     )}
                 </div>
             </section>
-            <section className='app__hackathon-card-container'>
-                {
-                    filteredArray.length === 0 ? searchText === "" ? hackathons.map(elem => <HackathonCard key={elem?._id} elem={elem} />) : hackathons.filter(elem => elem?.Name.toLowerCase().includes(searchText.toLowerCase())).map(elem => <HackathonCard key={elem?._id} elem={elem} />) : filteredArray.map(elem => <HackathonCard key={elem?._id} elem={elem} />)
-                }
+            {
+                hackathons?.length > 0 ? <section className='app__hackathon-card-container'>
+                    {
+                        filteredArray.length === 0 ? searchText === "" ? hackathons.map(elem => <HackathonCard key={elem?._id} elem={elem} />) : hackathons.filter(elem => elem?.Name.toLowerCase().includes(searchText.toLowerCase())).map(elem => <HackathonCard key={elem?._id} elem={elem} />) : filteredArray.map(elem => <HackathonCard key={elem?._id} elem={elem} />)
+                    }
 
-            </section>
+                </section> : <PropagateLoader color='#00B87C' loading={true} size={15} />
+            }
 
         </div>
     );

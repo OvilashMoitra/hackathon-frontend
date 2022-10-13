@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Moment from 'moment'
+import { Helmet } from 'react-helmet-async';
 import { BsBarChartLineFill } from "react-icons/bs";
 import Navigationbar from '../../Components/Navigationbar/Navigationbar.tsx';
 import './HackathonInfo.scss';
@@ -28,6 +29,15 @@ const HackathonInfo = () => {
     return (
         <>
             <Navigationbar />
+            <Helmet>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="description" content={`${hackathon?._id ? 'DPhi' : hackathon?.Name}`} />
+                <meta name="keywords" content="Hackathon,Challanges" />
+                <meta name="author" content="Ovilash Moitra" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>{`${hackathon?._id ? hackathon?.Name : 'DPhi'}`}</title>
+            </Helmet>
             {
                 hackathon?._id ? <>
                     <section className='app__hackathonInfo-banner'>
