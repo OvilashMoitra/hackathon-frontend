@@ -41,6 +41,8 @@ const Home = () => {
             if (filtervalue !== "ALL") {
                 let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
                 let tempFilter = [];
+                const uniqueIds = [];
+                let tempArr = [];
                 if (newCheckArray?.includes('ALL') !== true) {
                     for (let index = 0; index < newCheckArray.length; index++) {
                         if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
@@ -52,12 +54,25 @@ const Home = () => {
                 } else {
                     tempFilter = hackathons;
                 }
+                tempArr = tempFilter.filter(element => {
+                    const isDuplicate = uniqueIds.includes(element._id);
+
+                    if (!isDuplicate) {
+                        uniqueIds.push(element._id);
+
+                        return true;
+                    }
+
+                    return false;
+                });;
                 setCheckedArray(newCheckArray);
-                setFilteredArray(tempFilter);
+                setFilteredArray(tempArr);
             } else {
                 // setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
                 let newCheckArray = checkedArray.filter(elem => elem !== filtervalue);
                 let tempFilter = [];
+                const uniqueIds = [];
+                let tempArr = [];
                 for (let index = 0; index < newCheckArray.length; index++) {
                     if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
                         tempFilter = [...tempFilter, ...filteredArray.filter(elem => elem?.status === newCheckArray[index])];
@@ -68,10 +83,20 @@ const Home = () => {
                     //     tempFilter = hackathons;
                     // }
                 }
+                tempArr = tempFilter.filter(element => {
+                    const isDuplicate = uniqueIds.includes(element._id);
 
+                    if (!isDuplicate) {
+                        uniqueIds.push(element._id);
+
+                        return true;
+                    }
+
+                    return false;
+                });;
                 setCheckedArray(newCheckArray);
 
-                setFilteredArray(tempFilter);
+                setFilteredArray(tempArr);
 
             }
         } else {
@@ -108,9 +133,14 @@ const Home = () => {
             console.log(newCheckArray);
             if (newCheckArray.includes("ALL") === true) {
                 tempFilter = hackathons;
+                setCheckedArray(newCheckArray);
+                setFilteredArray(tempFilter);
+
             }
 
             else {
+                const uniqueIds = [];
+                let tempArr = [];
                 for (let index = 0; index < newCheckArray.length; index++) {
                     if ((newCheckArray[index] !== "Easy") && (newCheckArray[index] !== "Medium") && (newCheckArray[index] !== "Hard")) {
                         console.log(newCheckArray[index])
@@ -123,10 +153,24 @@ const Home = () => {
                     // if (newCheckArray[index] === "ALL") {
                     //     tempFilter = hackathons;
                 }
+                tempArr = tempFilter.filter(element => {
+                    const isDuplicate = uniqueIds.includes(element._id);
+
+                    if (!isDuplicate) {
+                        uniqueIds.push(element._id);
+
+                        return true;
+                    }
+
+                    return false;
+                });;
+                setCheckedArray(newCheckArray);
+                setFilteredArray(tempArr);
+
             }
             // console.log("temporary filter", tempFilter);
-            setCheckedArray(newCheckArray);
-            setFilteredArray(tempFilter);
+            // setCheckedArray(newCheckArray);
+            // setFilteredArray(tempFilter);
 
             // setCheckedArray(checkedArray.filter(elem => elem !== filtervalue));
             // setFilteredArray(filteredArray.filter(elem => elem?.level !== filtervalue));
@@ -211,6 +255,11 @@ const Home = () => {
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
+                </div>
+                <div className='app__quik-checked-item-container'>
+                    {checkedArray.map(elem =>
+                        <p className='app__quik-checked-item'>{elem}</p>
+                    )}
                 </div>
             </section>
             <section className='app__hackathon-card-container'>
